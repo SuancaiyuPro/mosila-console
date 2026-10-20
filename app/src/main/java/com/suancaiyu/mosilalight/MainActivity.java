@@ -27,6 +27,7 @@ public final class MainActivity extends Activity implements BleController.Listen
     AlertDialog freeNotice,infoDialog;
     boolean freeNoticeShown;
     static final String FREE_NOTICE_TEXT="此软件免费开源，如果你是通过付费获取的恭喜你被骗了";
+    static final String PROJECT_URL="https://github.com/SuancaiyuPro/mosila-console";
     boolean needsOnboarding(){return firstUse!=null&&firstUse.required;}
     SharedPreferences preferences,consolePreferences;
     LampBrand activeBrand=LampBrand.MOSILA;
@@ -341,13 +342,13 @@ public final class MainActivity extends Activity implements BleController.Listen
         LinearLayout misc=card(); misc.addView(text("其他设置",17,TEXT,true));
         misc.addView(button("RGB 线序："+(lineOrderSetting<1?"未设置":new String[]{"RGB","RBG","GRB","GBR","BRG","BGR"}[lineOrderSetting-1])+"  →",false,v->new AlertDialog.Builder(this).setTitle("RGB 线序").setItems(new String[]{"RGB","RBG","GRB","GBR","BRG","BGR"},(d,i)->{if(send(Protocol.lineOrder(i+1),false,true)){toast(settingFeedback());showTab(2);}}).setNegativeButton("取消",null).show()));
         misc.addView(button("自检："+(selfCheckSetting<0?"未设置":selfCheckSetting==1?"启用":"关闭")+"  →",false,v->new AlertDialog.Builder(this).setTitle("自检设置").setMessage("原应用提示：近光关闭时进行开关灯操作。请选择自检是否启用。").setPositiveButton("启用",(d,w)->{if(send(Protocol.frame(8,1),false,true))showTab(2);}).setNeutralButton("关闭自检",(d,w)->{if(send(Protocol.frame(8,0),false,true))showTab(2);}).setNegativeButton("取消",null).show()));addCard(misc);
-        foot("mosila console 0.3.3 测试版 · 实物效果待验证\n无账号、无卡密，不申请网络权限。");
+        foot("mosila console 0.3.4 测试版 · 实物效果待验证\n无账号、无卡密，不申请网络权限。");
         addAboutEntry();
     }
     void addAboutEntry(){
         LinearLayout about=card();about.addView(button("关于软件  →",false,v->showAboutSoftware()));addCard(about);
     }
-    String appVersion(){try{String value=getPackageManager().getPackageInfo(getPackageName(),0).versionName;return value==null?"0.3.3-test":value;}catch(Exception e){return "0.3.3-test";}}
+    String appVersion(){try{String value=getPackageManager().getPackageInfo(getPackageName(),0).versionName;return value==null?"0.3.4-test":value;}catch(Exception e){return "0.3.4-test";}}
     LinearLayout infoContent(String title){
         LinearLayout content=column();content.setPadding(dp(22),dp(22),dp(22),dp(10));TextView name=text(title,24,TEXT,true);name.setPadding(0,0,0,dp(14));content.addView(name);return content;
     }
@@ -355,6 +356,8 @@ public final class MainActivity extends Activity implements BleController.Listen
         LinearLayout content=infoContent("关于软件");content.addView(text("mosila console",25,TEXT,true));content.addView(sectionNote("版本 "+appVersion()));
         content.addView(text("免费开源",17,ACCENT,true));content.addView(sectionNote(FREE_NOTICE_TEXT));
         content.addView(text("支持的设备",17,TEXT,true));content.addView(sectionNote("mosila 大灯\n魔灯客 · 九号 N/F/M 大灯 3.0"));
+        content.addView(text("项目地址",17,TEXT,true));
+        TextView project=sectionNote(PROJECT_URL);project.setTextColor(ACCENT);project.setPadding(0,dp(10),0,dp(14));project.setOnClickListener(v->{try{startActivity(new Intent(Intent.ACTION_VIEW,android.net.Uri.parse(PROJECT_URL)));}catch(ActivityNotFoundException e){toast("未找到可打开网页的应用");}});content.addView(project);
         showInfoDialog(content,"查看使用引导",()->showUsageHelp());
     }
     void showUsageHelp(){

@@ -24,14 +24,14 @@ jobs:
       - name: Runtime regression tests
         run: python3 runtime-tests/run.py
       - name: Build signed test APK
-        run: python3 build.py --build-tools "$ANDROID_HOME/build-tools/35.0.0" --output dist/MOSILA-v0.3.3-test.apk
+        run: python3 build.py --build-tools "$ANDROID_HOME/build-tools/35.0.0" --output dist/MOSILA-v0.3.4-ci-test.apk
       - name: Package source and checksums
         run: |
-          git archive --format=zip --prefix=mosila-console/ HEAD -o dist/MOSILA-v0.3.3-source.zip
+          git archive --format=zip --prefix=mosila-console/ HEAD -o dist/MOSILA-v0.3.4-source.zip
           cd dist
           sha256sum *.apk *.zip > SHA256SUMS.txt
       - name: Publish test release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "v0.3.3-test-build${GITHUB_RUN_NUMBER}" dist/*.apk dist/*.zip dist/SHA256SUMS.txt --target "$GITHUB_SHA" --prerelease --title "mosila console 0.3.3 test · build ${GITHUB_RUN_NUMBER}" --notes "免费开源测试版。新增首次使用引导、免费开源提示和关于软件。支持 MOSILA 与魔灯客九号 N/F/M 大灯 3.0；硬件效果仍需实物验证。"
+          gh release create "v0.3.4-test-build${GITHUB_RUN_NUMBER}" dist/*.apk dist/*.zip dist/SHA256SUMS.txt --target "$GITHUB_SHA" --prerelease --title "mosila console 0.3.4 CI test · build ${GITHUB_RUN_NUMBER}" --notes "免费开源测试版。关于软件新增可点击的项目地址。此 CI APK 使用独立临时签名，不能覆盖安装已有测试版；覆盖更新请使用仓库 releases 目录内的 APK。支持 MOSILA 与魔灯客九号 N/F/M 大灯 3.0；硬件效果仍需实物验证。"

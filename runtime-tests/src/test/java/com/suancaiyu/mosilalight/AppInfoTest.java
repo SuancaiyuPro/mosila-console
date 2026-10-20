@@ -37,6 +37,7 @@ public class AppInfoTest {
         RuntimeEnvironment.getApplication().getSharedPreferences("console",0).edit().putBoolean("hide_free_notice",true).commit();open(true);
         for(LampBrand brand:LampBrand.values()){
             h.selectBrand(brand);h.showTab(2);View last=h.body.getChildAt(h.body.getChildCount()-1);TextView about=find(last,"关于软件  →");assertNotNull(brand.title,about);about.performClick();ShadowLooper.idleMainLooper();View dialog=h.infoDialog.getWindow().getDecorView();assertNotNull(find(dialog,"关于软件"));assertNotNull(find(dialog,"mosila console"));assertNotNull(find(dialog,MainActivity.FREE_NOTICE_TEXT));assertNotNull(find(dialog,"版本 "+h.appVersion()));
+            TextView project=find(dialog,"https://github.com/SuancaiyuPro/mosila-console");assertNotNull(brand.title,project);project.performClick();android.content.Intent opened=Shadows.shadowOf(h).getNextStartedActivity();assertEquals(android.content.Intent.ACTION_VIEW,opened.getAction());assertEquals(MainActivity.PROJECT_URL,opened.getDataString());
             h.infoDialog.getButton(AlertDialog.BUTTON_NEUTRAL).performClick();ShadowLooper.idleMainLooper();assertNotNull(find(h.infoDialog.getWindow().getDecorView(),"使用引导"));assertFalse(h.needsOnboarding());assertEquals(brand,h.activeBrand);assertFalse(h.ble.isScanning());h.infoDialog.dismiss();
         }
     }

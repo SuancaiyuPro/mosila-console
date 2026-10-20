@@ -18,7 +18,7 @@ def build():
     p = argparse.ArgumentParser()
     p.add_argument('--android-jar', type=Path)
     p.add_argument('--build-tools', type=Path)
-    p.add_argument('--output', type=Path, default=ROOT/'build'/'MOSILA-v0.3.3-test.apk')
+    p.add_argument('--output', type=Path, default=ROOT/'build'/'MOSILA-v0.3.4-test.apk')
     args = p.parse_args()
     sdk = Path(os.environ.get('ANDROID_HOME', os.environ.get('ANDROID_SDK_ROOT', str(Path.home()/'Android'/'Sdk'))))
     jar = (args.android_jar or sdk/'platforms'/'android-35'/'android.jar').resolve()
