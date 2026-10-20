@@ -347,12 +347,13 @@ public final class MainActivity extends Activity implements BleController.Listen
     void addAboutEntry(){
         LinearLayout about=card();about.addView(button("关于软件  →",false,v->showAboutSoftware()));addCard(about);
     }
-    String appVersion(){try{String value=getPackageManager().getPackageInfo(getPackageName(),0).versionName;return value==null?"0.3.4-test":value;}catch(Exception e){return "0.3.4-test";}}
+    String appVersion(){try{String value=getPackageManager().getPackageInfo(getPackageName(),0).versionName;return value==null?"0.3.4":value;}catch(Exception e){return "0.3.4";}}
     LinearLayout infoContent(String title){
         LinearLayout content=column();content.setPadding(dp(22),dp(22),dp(22),dp(10));TextView name=text(title,24,TEXT,true);name.setPadding(0,0,0,dp(14));content.addView(name);return content;
     }
     void showAboutSoftware(){
         LinearLayout content=infoContent("关于软件");content.addView(text("mosila console",25,TEXT,true));content.addView(sectionNote("版本 "+appVersion()));
+        content.addView(text("作者",17,TEXT,true));content.addView(sectionNote("ChatGPT、酸菜鱼"));
         content.addView(text("免费开源",17,ACCENT,true));content.addView(sectionNote(FREE_NOTICE_TEXT));
         content.addView(text("支持的设备",17,TEXT,true));content.addView(sectionNote("mosila 大灯\n魔灯客 · 九号 N/F/M 大灯 3.0"));
         content.addView(text("项目地址",17,TEXT,true));
