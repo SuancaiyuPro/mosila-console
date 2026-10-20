@@ -36,7 +36,7 @@ final class MdkUi {
             LinearLayout tabs=h.row();for(int i=0;i<3;i++){final int slot=i;TextView b=h.button(MdkProtocol.NAMES[i],channel==i,v->{channel=slot;h.showTab(h.tab);});b.setTextSize(11);b.setPadding(h.dp(5),h.dp(10),h.dp(5),h.dp(10));h.addWeight(tabs,b);}hero.addView(tabs);h.addCard(hero);
             if(tab==0)color();else effects();
         }else settings();
-        h.foot(hint()+"\n仅适配产品 ID 58 · 参数来自本地记录，不代表设备状态回读。");
+        if(tab!=2)h.foot(hint()+"\n仅适配产品 ID 58 · 参数来自本地记录，不代表设备状态回读。");
         if(tab==2)h.addAboutEntry();
     }
     boolean submit(String key){

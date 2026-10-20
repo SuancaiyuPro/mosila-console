@@ -342,7 +342,6 @@ public final class MainActivity extends Activity implements BleController.Listen
         LinearLayout misc=card(); misc.addView(text("其他设置",17,TEXT,true));
         misc.addView(button("RGB 线序："+(lineOrderSetting<1?"未设置":new String[]{"RGB","RBG","GRB","GBR","BRG","BGR"}[lineOrderSetting-1])+"  →",false,v->new AlertDialog.Builder(this).setTitle("RGB 线序").setItems(new String[]{"RGB","RBG","GRB","GBR","BRG","BGR"},(d,i)->{if(send(Protocol.lineOrder(i+1),false,true)){toast(settingFeedback());showTab(2);}}).setNegativeButton("取消",null).show()));
         misc.addView(button("自检："+(selfCheckSetting<0?"未设置":selfCheckSetting==1?"启用":"关闭")+"  →",false,v->new AlertDialog.Builder(this).setTitle("自检设置").setMessage("原应用提示：近光关闭时进行开关灯操作。请选择自检是否启用。").setPositiveButton("启用",(d,w)->{if(send(Protocol.frame(8,1),false,true))showTab(2);}).setNeutralButton("关闭自检",(d,w)->{if(send(Protocol.frame(8,0),false,true))showTab(2);}).setNegativeButton("取消",null).show()));addCard(misc);
-        foot("mosila console 0.3.4 测试版 · 实物效果待验证\n无账号、无卡密，不申请网络权限。");
         addAboutEntry();
     }
     void addAboutEntry(){

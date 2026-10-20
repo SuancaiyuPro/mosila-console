@@ -115,7 +115,7 @@
 
 ## 0.3.4 关于软件项目地址
 
-两个品牌的“关于软件”显示项目地址 https://github.com/SuancaiyuPro/mosila-console，点击通过浏览器打开。版本提升为0.3.4-test / versionCode17，可覆盖已有测试版。
+两个品牌的“关于软件”显示项目地址 https://github.com/SuancaiyuPro/mosila-console，点击通过浏览器打开。移除设置页“关于软件”上方的底部小字。版本提升为0.3.4-test / versionCode17，可覆盖已有测试版。
 
 ## 0.3.3 首次使用引导与免费开源提示
 
