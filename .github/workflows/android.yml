@@ -18,7 +18,9 @@ jobs:
           distribution: temurin
           java-version: '17'
       - name: Install Android SDK packages
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platforms;android-35 build-tools;35.0.0'
       - name: Runtime regression tests
         run: python3 runtime-tests/run.py
       - name: Build signed test APK
