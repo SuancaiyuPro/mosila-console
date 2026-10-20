@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion><groupId>com.suancaiyu</groupId><artifactId>mosila-runtime-tests</artifactId><version>0.1</version>
+  <properties><maven.compiler.release>8</maven.compiler.release><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><android.jar>${env.ANDROID_HOME}/platforms/android-35/android.jar</android.jar></properties>
+  <repositories><repository><id>google</id><url>https://dl.google.com/dl/android/maven2/</url></repository><repository><id>central</id><url>https://repo.maven.apache.org/maven2</url></repository></repositories>
+  <dependencies>
+    <dependency><groupId>local</groupId><artifactId>android</artifactId><version>35</version><scope>system</scope><systemPath>${android.jar}</systemPath></dependency>
+    <dependency><groupId>junit</groupId><artifactId>junit</artifactId><version>4.13.2</version><scope>test</scope></dependency>
+    <dependency><groupId>org.robolectric</groupId><artifactId>robolectric</artifactId><version>4.14.1</version><scope>test</scope></dependency>
+  </dependencies>
+  <build><sourceDirectory>../app/src/main/java</sourceDirectory><plugins>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.13.0</version></plugin>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>3.5.2</version><configuration>
+      <useSystemClassLoader>false</useSystemClassLoader>
+      <systemPropertyVariables><robolectric.dependency.repo.url>https://repo.maven.apache.org/maven2</robolectric.dependency.repo.url><robolectric.resourcesMode>binary</robolectric.resourcesMode></systemPropertyVariables>
+      <additionalClasspathElements><additionalClasspathElement>${project.basedir}/aar/monitor.jar</additionalClasspathElement><additionalClasspathElement>${project.basedir}/aar/espresso.jar</additionalClasspathElement></additionalClasspathElements>
+    </configuration></plugin>
+  </plugins></build>
+</project>

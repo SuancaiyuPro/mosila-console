@@ -1,0 +1,25 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.suancaiyu.mosilalight'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.suancaiyu.mosilalight'
+        minSdk 26
+        targetSdk 35
+        versionCode 16
+        versionName '0.3.3-test'
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+    signingConfigs {
+        test {
+            storeFile rootProject.file('test-signing.p12')
+            storePassword 'android'
+            keyAlias 'mosila-light-test'
+            keyPassword 'android'
+        }
+    }
+    buildTypes {
+        debug { signingConfig signingConfigs.test }
+        release { signingConfig signingConfigs.test }
+    }
+}

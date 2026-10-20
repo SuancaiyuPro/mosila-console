@@ -1,0 +1,8 @@
+/build/
+/.gradle/
+/local.properties
+/runtime-tests/target/
+/runtime-tests/aar/
+/dist/
+__pycache__/
+/test-signing.p12
